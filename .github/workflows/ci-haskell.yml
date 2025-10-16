@@ -2,7 +2,7 @@ name: Haskell CI
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - ".github/workflows/*"
       - "**/*.hs"
@@ -11,7 +11,7 @@ on:
       - "package.yaml"
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - ".github/workflows/*"
       - "**/*.hs"
