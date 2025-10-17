@@ -31,7 +31,18 @@ amicableNumbersSum' a acc
               sum_b = divisionSum' b 1 0 
 
 
--- Generate/filter/reduce veison
+-- Generate/filter/reduce version
+
+allVariants' = [(x, divisionSum' x 1 0) | x <- [1..10000]]
+
+targetCondition :: (Int, Int) -> Bool
+targetCondition (x, y)
+    | divisionSum' y 1 0 == x = True
+    | otherwise = False
+
+targetCases = filter targetCondition allVariants'
+
+finalSum = foldl (\acc (x, y) -> acc + x + y) 0 targetCases
 
 -- Map version
 
@@ -40,4 +51,4 @@ amicableNumbersSum' a acc
 
 main::IO()
 
-main = print (amicableNumbersSumRec' 1)
+main = print (finalSum)
