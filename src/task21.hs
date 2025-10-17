@@ -58,6 +58,19 @@ mapFinalSum = foldl (+) 0 mapTargerCases
 -- Infinite list version
 
 
+divisionSum :: Int -> Int
+divisionSum n = sum [d | d <- [1..n `div` 2], n `mod` d == 0]
+
+areAmicable :: Int -> Int -> Bool
+areAmicable a b = (a /= b) && (divisionSum a == b) && (divisionSum b == a)
+
+amicableNumbers :: [(Int, Int)]
+amicableNumbers = [(a, b) | a <- [1..], let b = divisionSum a, areAmicable a b]
+
+amicableNumbersSum :: Int
+amicableNumbersSum =
+    sum [a + b | (a, b) <- takeWhile (\(x, _) -> x <= 10000) amicableNumbers]
+
 main::IO()
 
-main = print (mapFinalSum)
+main = print (amicableNumbersSum)

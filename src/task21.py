@@ -1,6 +1,6 @@
 def amicable_numbers_sum():
     sum = 0
-    for a in range(1, 10000):
+    for a in range(1, 10001):
         sum_a = 0
         for division in range(1, a // 2 + 1):
             if a % division == 0:
