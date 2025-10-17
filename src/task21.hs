@@ -46,9 +46,18 @@ finalSum = foldl (\acc (x, y) -> acc + x + y) 0 targetCases
 
 -- Map version
 
+checkCondition :: (Int, Int) -> Int
+checkCondition (x, y)
+    | divisionSum' y 1 0 == x = x + y
+    | otherwise = 0
+
+mapTargerCases = map checkCondition allVariants'
+
+mapFinalSum = foldl (+) 0 mapTargerCases
+
 -- Infinite list version
 
 
 main::IO()
 
-main = print (finalSum)
+main = print (mapFinalSum)
