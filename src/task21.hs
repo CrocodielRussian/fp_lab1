@@ -36,9 +36,7 @@ amicableNumbersSum' a acc
 allVariants' = [(x, divisionSum' x 1 0) | x <- [1..10000]]
 
 targetCondition :: (Int, Int) -> Bool
-targetCondition (x, y)
-    | divisionSum' y 1 0 == x = True
-    | otherwise = False
+targetCondition (x, y) = divisionSum' y 1 0 == x
 
 targetCases = filter targetCondition allVariants'
 
@@ -53,13 +51,12 @@ checkCondition (x, y)
 
 mapTargerCases = map checkCondition allVariants'
 
-mapFinalSum = foldl (+) 0 mapTargerCases
+mapFinalSum = sum mapTargerCases
 
 -- Infinite list version
 
-
 divisionSum :: Int -> Int
-divisionSum n = sum [d | d <- [1..n `div` 2], n `mod` d == 0]
+divisionSum n = sum [d | d <- [1..n `div` 2 + 1], n `mod` d == 0]
 
 areAmicable :: Int -> Int -> Bool
 areAmicable a b = (a /= b) && (divisionSum a == b) && (divisionSum b == a)
