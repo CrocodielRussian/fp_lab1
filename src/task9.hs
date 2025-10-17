@@ -1,3 +1,4 @@
+import Data.List (find)
 -- Recursion version
 
 checkTripleRec' :: Int -> Int -> Int
@@ -26,15 +27,21 @@ checkCondition (n, m)
     | 2 * m ^ 2 + 2 * m * n == 1000 = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
     | otherwise = 0
 
-getCondition :: Int -> Bool
-getCondition x
-    | x > 0 = True
-    | otherwise = False
-
 targetCases' = map checkCondition allVariants'
-getCase = filter getCondition targetCases'
+getCase = filter (> 0) targetCases'
 
 -- Infinite list version
 
+allVariantsInf' = [(n, m) | n <- [1..], m <- [1..25]]
+
+isValidPair :: (Int, Int) -> Bool
+isValidPair (n, m) = 2 * m ^ 2 + 2 * m * n == 1000
+
+computeResult :: Maybe (Int, Int) -> Int
+computeResult (Just (n, m)) = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
+
+checkTripleInfinite :: Maybe (Int, Int)
+checkTripleInfinite = find isValidPair allVariantsInf'
+
 main :: IO ()
-main = print (targetMul targetCase)
+main = print (  computeResult checkTripleInfinite)
