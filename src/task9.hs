@@ -7,7 +7,7 @@ checkTripleRec' n m
     | 2 * m ^ 2 + 2 * m * n == 1000 = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
     | otherwise = checkTripleRec' (n + 1) m
 
--- Generate/filter version
+-- Generate/filter/reduce version
 
 allVariants' = [(n, m) | n <- [1..25], m <- [1..25]]
 
@@ -17,7 +17,7 @@ targetCondition (n, m) = 2 * m ^ 2 + 2 * m * n == 1000
 targetCase = filter targetCondition allVariants'
 
 targetMul :: [(Int, Int)] -> Int
-targetMul [(n, m)] = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
+targetMul = foldl (\acc (n, m) -> acc + (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)) 0
 
 -- Map version
 
@@ -37,4 +37,4 @@ getCase = filter getCondition targetCases'
 -- Infinite list version
 
 main :: IO ()
-main = print (head getCase)
+main = print (targetMul targetCase)
