@@ -34,5 +34,7 @@ getCondition x
 targetCases' = map checkCondition allVariants'
 getCase = filter getCondition targetCases'
 
+-- Infinity list version
+
 main :: IO ()
 main = print (getCase !! 0)

@@ -1,5 +1,19 @@
 -- Recursion version
 
+divisionSumRec' :: Int -> Int -> Int
+divisionSumRec' n division
+    | division > n `div` 2 = 0
+    | n `mod` division == 0 = (+) division (divisionSumRec' n (division + 1) )
+    | otherwise = divisionSumRec' n (division + 1)
+
+amicableNumbersSumRec' :: Int -> Int
+amicableNumbersSumRec' a
+    | a > 10000 = 0
+    | a /= sum_b = amicableNumbersSumRec' (a+1)
+    | a == sum_b = (+) (a + b) (amicableNumbersSumRec' (a+1))
+        where b = divisionSumRec' a 1
+              sum_b = divisionSumRec' b 1
+
 -- Tail Recurion version
 
 divisionSum' :: Int -> Int -> Int -> Int
@@ -21,6 +35,9 @@ amicableNumbersSum' a acc
 
 -- Map version
 
+-- Infinity list version
+
+
 main::IO()
 
-main = print (amicableNumbersSum' 1 0)
+main = print (amicableNumbersSumRec' 1)
