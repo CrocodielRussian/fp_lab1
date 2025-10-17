@@ -3,9 +3,9 @@
 checkTripleRec' :: Int -> Int -> Int
 checkTripleRec' n m
     | m >= 25 = 1
-    | n >= 25 = (checkTripleRec' 0 (m + 1))
-    | (2 * m ^ 2 + 2 * m * n == 1000) = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
-    | otherwise = (checkTripleRec' (n + 1) m)
+    | n >= 25 = checkTripleRec' 0 (m + 1)
+    | 2 * m ^ 2 + 2 * m * n == 1000 = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
+    | otherwise = checkTripleRec' (n + 1) m
 
 -- Generate/filter version
 
@@ -34,7 +34,7 @@ getCondition x
 targetCases' = map checkCondition allVariants'
 getCase = filter getCondition targetCases'
 
--- Infinity list version
+-- Infinite list version
 
 main :: IO ()
-main = print (getCase !! 0)
+main = print (head getCase)

@@ -31,11 +31,11 @@ amicableNumbersSum' a acc
               sum_b = divisionSum' b 1 0 
 
 
--- Generate/filter veison
+-- Generate/filter/reduce veison
 
 -- Map version
 
--- Infinity list version
+-- Infinite list version
 
 
 main::IO()
