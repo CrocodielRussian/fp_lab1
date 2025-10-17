@@ -1,9 +1,9 @@
 def find_triple_cycle():
-    for i in range(500):
-        for j in range(500):
-            for k in range(500):
-                if i + j + k == 1000 and i ** 2 + j ** 2 == k ** 2:
-                    return i * j * k
+    for n in range(25):
+        for m in range(25):
+            if 2 * m ** 2 + 2 * m * n == 1000:
+                return (m ** 2 - n ** 2) * 2 * m * n * (m ** 2 + n ** 2)
+            
 
 if __name__ == "__main__":
     print(find_triple_cycle())
