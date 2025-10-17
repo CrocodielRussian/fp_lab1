@@ -1,3 +1,5 @@
+-- Recursion version
+
 checkTripleRec' :: Int -> Int -> Int
 checkTripleRec' n m
     | m >= 25 = 1
@@ -5,6 +7,7 @@ checkTripleRec' n m
     | (2 * m ^ 2 + 2 * m * n == 1000) = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
     | otherwise = (checkTripleRec' (n + 1) m)
 
+-- Generate/filter version
 
 allVariants' = [(n, m) | n <- [1..25], m <- [1..25]]
 
@@ -16,6 +19,20 @@ targetCase = filter targetCondition allVariants'
 targetMul :: [(Int, Int)] -> Int
 targetMul [(n, m)] = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
 
-main = print (targetMul targetCase)
+-- Map version
 
--- main = print (checkTripleRec' 0 0)
+checkCondition :: (Int, Int) -> Int
+checkCondition (n, m)
+    | 2 * m ^ 2 + 2 * m * n == 1000 = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
+    | otherwise = 0
+
+getCondition :: Int -> Bool
+getCondition x
+    | x > 0 = True
+    | otherwise = False
+
+targetCases' = map checkCondition allVariants'
+getCase = filter getCondition targetCases'
+
+main :: IO ()
+main = print (getCase !! 0)
