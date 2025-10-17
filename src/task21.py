@@ -14,7 +14,7 @@ def amicable_numbers_sum():
         if a == sum_b:
             sum += a
             sum += sum_a
-            
+
     return sum
 
 
