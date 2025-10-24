@@ -11,7 +11,7 @@ def amicable_numbers_sum():
             if sum_a % division == 0:
                 sum_b += division
 
-        if a == sum_b:
+        if a == sum_b and a != sum_a:
             sum += a
             sum += sum_a
 

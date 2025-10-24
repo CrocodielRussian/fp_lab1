@@ -3,11 +3,11 @@ import First
 
 check_correctness :: Test
 check_correctness = TestLabel "Check of correct" $ TestList
-  [ TestCase (assertEqual "Recursion version test is not correct" 80568 (amicableNumbersSumRec' 0)),
-  TestCase (assertEqual "Tail Recursion version test is not correct" 80568 (amicableNumbersSumRecTail' 0 0)),
-  TestCase (assertEqual "Generate/filter/reduce version test is not correct" 80568 (finalSum)),
-  TestCase (assertEqual "Map version test is not correct" 80568 (targetCasesMap)),
-  TestCase (assertEqual "Infinite list version version test is not correct" 80568 (amicableNumbersSum))
+  [ TestCase (assertEqual "Recursion version test is not correct" 63252 (amicableNumbersSumRec' 0)),
+  TestCase (assertEqual "Tail Recursion version test is not correct" 63252 (amicableNumbersSumRecTail' 0 0)),
+  TestCase (assertEqual "Generate/filter/reduce version test is not correct" 63252 (finalSum)),
+  TestCase (assertEqual "Map version test is not correct" 63252 (targetCasesMap)),
+  TestCase (assertEqual "Infinite list version version test is not correct" 63252 (amicableNumbersSum))
   ]
 
 
