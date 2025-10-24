@@ -1,6 +1,7 @@
 module Second where
 
 import Data.List (find)
+
 -- Recursion version
 
 checkTripleRec' :: Int -> Int -> Int
@@ -22,6 +23,8 @@ targetCase = filter targetCondition allVariants'
 targetMul :: [(Int, Int)] -> Int
 targetMul = foldl (\acc (n, m) -> acc + (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)) 0
 
+checkTripleReduce = targetMul targetCase
+
 -- Map version
 
 checkCondition :: (Int, Int) -> Int
@@ -31,6 +34,8 @@ checkCondition (n, m)
 
 targetCases' = map checkCondition allVariants'
 getCase = filter (> 0) targetCases'
+
+checkTripleMap = head getCase
 
 -- Infinite list version
 
@@ -44,6 +49,3 @@ computeResult (Just (n, m)) = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
 
 checkTripleInfinite :: Maybe (Int, Int)
 checkTripleInfinite = find isValidPair allVariantsInf'
-
-main :: IO ()
-main = print (  computeResult checkTripleInfinite)
