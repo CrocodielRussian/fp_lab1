@@ -73,7 +73,7 @@ areAmicable :: Int -> Int -> Bool
 areAmicable a b = (a /= b) && (divisionSum a == b) && (divisionSum b == a)
 
 amicableNumbers :: [(Int, Int)]
-amicableNumbers = [(a, b) | a <- [1..10000], let b = divisionSum a, areAmicable a b]
+amicableNumbers = [(a, b) | a <- [1..], let b = divisionSum a, areAmicable a b]
 
 amicableNumbersSum :: Int
 amicableNumbersSum =
