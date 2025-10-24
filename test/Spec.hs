@@ -1,16 +1,19 @@
-module Spec where
+import Test.HUnit
+import First
 
-import Test.Hspec
-import Lib 
+check_correctness :: Test
+check_correctness = TestLabel "Check of correct" $ TestList
+  [ TestCase (assertEqual "Recursion version test is not correct" 63252 (amicableNumbersSumRec' 0)),
+  TestCase (assertEqual "Tail Recursion version test is not correct" 63252 (amicableNumbersSumRecTail' 0 0)),
+  TestCase (assertEqual "Generate/filter/reduce version test is not correct" 63252 (finalSum)),
+  TestCase (assertEqual "Map version test is not correct" 63252 (targetCasesMap)),
+  TestCase (assertEqual "Infinite list version version test is not correct" 63252 (amicableNumbersSum))
+  ]
 
-main :: IO ()
-main = hspec $ do
-  describe "Lib.add" $ do
-    it "adds two numbers correctly" $ do
-      add 2 3 `shouldBe` 5
-      add (-1) 1 `shouldBe` 0
-      add 0 0 `shouldBe` 0
 
-    it "is commutative" $ do
-      add 1 2 `shouldBe` add 2 1
-      add (-3) 5 `shouldBe` add 5 (-3)
+tests :: Test
+tests = TestList
+      [ check_correctness ]
+
+main :: IO Counts
+main = runTestTT tests
