@@ -27,10 +27,12 @@ divisionSumRecTail' n division acc
 amicableNumbersSumRecTail' :: Int -> Int -> Int
 amicableNumbersSumRecTail' a acc
     | a > 10000 = acc
-    | a == sum_b && a /= b = amicableNumbersSumRecTail' (a+1) (acc + a + b)
-    | otherwise = amicableNumbersSumRecTail' (a+1) acc
-        where b = divisionSumRecTail' a 1 0
-              sum_b = divisionSumRecTail' b 1 0 
+    | a == sum_b && a /= b = amicableNumbersSumRecTail' (a + 1) (acc + a + b)
+    | otherwise = amicableNumbersSumRecTail' (a + 1) acc
+    where
+      b = divisionSumRecTail' a 1 0
+      sum_b = divisionSumRecTail' b 1 0
+
 
 
 -- Generate/filter/reduce version

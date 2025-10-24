@@ -11,6 +11,17 @@ checkTripleRec' n m
     | 2 * m ^ 2 + 2 * m * n == 1000 = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
     | otherwise = checkTripleRec' (n + 1) m
 
+-- Tail recursion version
+
+allVariantsPairs' :: [(Int, Int)]
+allVariantsPairs' = [(x, y) | x <- [1..25], y <- [1..25]]
+
+checkTripleRecTail :: [(Int, Int)] -> Int
+checkTripleRecTail [] = 1  
+checkTripleRecTail ((m, n) : xs)
+  | 2 * m ^ 2 + 2 * m * n == 1000 = (m ^ 2 - n ^ 2) * 2 * m * n * (m ^ 2 + n ^ 2)
+  | otherwise = checkTripleRecTail xs
+
 -- Generate/filter/reduce version
 
 allVariants' = [(n, m) | n <- [1..25], m <- [1..25]]

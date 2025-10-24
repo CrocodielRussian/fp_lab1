@@ -14,6 +14,7 @@ check_correctness_task21 = TestLabel "Check of correct task21" $ TestList
 check_correctness_task9 :: Test
 check_correctness_task9 = TestLabel "Check of correct task9" $ TestList
   [ TestCase (assertEqual "Recursion version test is not correct" 31875000 (checkTripleRec' 0 0)),
+  TestCase (assertEqual "Tail Recursion version test is not correct" 31875000 (checkTripleRecTail allVariantsPairs')),
   TestCase (assertEqual "Generate/filter/reduce version test is not correct" 31875000 (checkTripleReduce)),
   TestCase (assertEqual "Map version test is not correct" 31875000 (checkTripleMap)),
   TestCase (assertEqual "Infinite list version version test is not correct" 31875000 (computeResult checkTripleInfinite))
