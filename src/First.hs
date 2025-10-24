@@ -1,3 +1,5 @@
+module First where
+
 -- Recursion version
 
 divisionSumRec' :: Int -> Int -> Int
@@ -16,47 +18,47 @@ amicableNumbersSumRec' a
 
 -- Tail Recurion version
 
-divisionSum' :: Int -> Int -> Int -> Int
-divisionSum' n division acc
+divisionSumRecTail' :: Int -> Int -> Int -> Int
+divisionSumRecTail' n division acc
     | division > n `div` 2 = acc
-    | n `mod` division == 0 = divisionSum' n (division + 1) (acc + division)
-    | otherwise = divisionSum' n (division + 1) acc
+    | n `mod` division == 0 = divisionSumRecTail' n (division + 1) (acc + division)
+    | otherwise = divisionSumRecTail' n (division + 1) acc
 
-amicableNumbersSum' :: Int -> Int -> Int
-amicableNumbersSum' a acc
+amicableNumbersSumRecTail' :: Int -> Int -> Int
+amicableNumbersSumRecTail' a acc
     | a > 10000 = acc
-    | a /= sum_b = amicableNumbersSum' (a+1) acc
-    | a == sum_b = amicableNumbersSum' (a+1) (acc + a + b)
-        where b = divisionSum' a 1 0
-              sum_b = divisionSum' b 1 0 
+    | a /= sum_b = amicableNumbersSumRecTail' (a+1) acc
+    | a == sum_b = amicableNumbersSumRecTail' (a+1) (acc + a + b)
+        where b = divisionSumRecTail' a 1 0
+              sum_b = divisionSumRecTail' b 1 0 
 
 
 -- Generate/filter/reduce version
 
-allVariants' = [(x, divisionSum' x 1 0) | x <- [1..10000]]
+allVariants' = [(x, divisionSumRecTail' x 1 0) | x <- [1..10000]]
 
 targetCondition :: (Int, Int) -> Bool
-targetCondition (x, y) = divisionSum' y 1 0 == x
+targetCondition (x, y) = divisionSumRecTail' y 1 0 == x
 
-targetCases = filter targetCondition allVariants'
+targetCasesFilter = filter targetCondition allVariants'
 
-finalSum = foldl (\acc (x, y) -> acc + x + y) 0 targetCases
+finalSum = foldl (\acc (x, y) -> acc + x + y) 0 targetCasesFilter
 
 -- Map version
 
 checkCondition :: (Int, Int) -> Int
 checkCondition (x, y)
-    | divisionSum' y 1 0 == x = x + y
+    | divisionSumRecTail' y 1 0 == x = x + y
     | otherwise = 0
 
-mapTargerCases = map checkCondition allVariants'
+mapTargerCases = map checkCondition allVariants' 
 
-mapFinalSum = sum mapTargerCases
+targetCasesMap = sum mapTargerCases
 
 -- Infinite list version
 
 divisionSum :: Int -> Int
-divisionSum n = sum [d | d <- [1..n `div` 2 + 1], n `mod` d == 0]
+divisionSum n = sum [d | d <- [1..(n `div` 2)], n `mod` d == 0]
 
 areAmicable :: Int -> Int -> Bool
 areAmicable a b = (a /= b) && (divisionSum a == b) && (divisionSum b == a)
@@ -68,6 +70,3 @@ amicableNumbersSum :: Int
 amicableNumbersSum =
     sum [a + b | (a, b) <- takeWhile (\(x, _) -> x <= 10000) amicableNumbers]
 
-main::IO()
-
-main = print (amicableNumbersSum)
